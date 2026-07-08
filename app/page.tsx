@@ -87,12 +87,10 @@ export default function Home() {
             WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"
           }}>MIZU</h1>
         </div>
-        <div style={{ display: "flex", gap: "32px", alignItems: "center" }}>
-          {["Properties", "Portfolio", "How it works"].map((item) => (
-            <a key={item} href="#" style={{
-              color: "rgba(255,255,255,0.6)", textDecoration: "none", fontSize: "14px"
-            }}>{item}</a>
-          ))}
+       <div style={{ display: "flex", gap: "32px", alignItems: "center" }}>
+          <a href="/" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none", fontSize: "14px" }}>Properties</a>
+          <a href="/portfolio" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none", fontSize: "14px" }}>Portfolio</a>
+          <a href="#how-it-works" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none", fontSize: "14px" }}>How it works</a>
         </div>
         <ConnectButton />
       </nav>
