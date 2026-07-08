@@ -1,4 +1,4 @@
-export const MIZU_CONTRACT_ADDRESS = '0xfabe9588fd6295ef50f0d0a234d1583286d02119';
+export const MIZU_CONTRACT_ADDRESS = '0xEC901Fed080Ac5D817De4C5f2c17Bbfa726b5197';
 export const MIZU_ABI = [
   {
     "type": "constructor",
@@ -467,7 +467,7 @@ export const MIZU_ABI = [
     ]
   }
 ] as const;
-export const USDC_ADDRESS = '0x3600000000000000000000000000000000000000';
+export const USDC_ADDRESS = '0x6373f2958185152CefF9acE325De0E41903d1FC7';
 export const USDC_ABI = [
   {
     name: 'approve',
