@@ -13,13 +13,13 @@ export default function Home() {
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const properties = [
-    { name: "Victoria Island Tower", location: "Lagos, Nigeria", type: "Commercial", shares: "10,000", price: "$10", yield: "8.2%", sold: 65, color: "#0ea5e9" },
-    { name: "Canary Wharf Office Suite", location: "London, UK", type: "Commercial", shares: "5,000", price: "$100", yield: "9.2%", sold: 40, color: "#38b6ff" },
-    { name: "Downtown Dubai Plaza", location: "Dubai, UAE", type: "Mixed", shares: "20,000", price: "$25", yield: "8.8%", sold: 80, color: "#7dd3fc" },
-    { name: "Ikoyi Luxury Apartments", location: "Lagos, Nigeria", type: "Residential", shares: "8,000", price: "$15", yield: "7.5%", sold: 55, color: "#0ea5e9" },
-    { name: "Marina Bay Residences", location: "Singapore", type: "Residential", shares: "12,000", price: "$50", yield: "7.9%", sold: 30, color: "#38b6ff" },
-    { name: "Westlands Business Park", location: "Nairobi, Kenya", type: "Commercial", shares: "15,000", price: "$20", yield: "8.5%", sold: 70, color: "#7dd3fc" },
+const properties = [
+    { name: "Victoria Island Tower", location: "Lagos, Nigeria", type: "Commercial", shares: "10,000", price: "$10", yield: "8.2%", sold: 65, color: "#0ea5e9", image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" },
+    { name: "Canary Wharf Office Suite", location: "London, UK", type: "Commercial", shares: "5,000", price: "$100", yield: "9.2%", sold: 40, color: "#38b6ff", image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80" },
+    { name: "Downtown Dubai Plaza", location: "Dubai, UAE", type: "Mixed", shares: "20,000", price: "$25", yield: "8.8%", sold: 80, color: "#7dd3fc", image: "https://images.unsplash.com/photo-1546412414-8035e1776c9a?w=600&q=80" },
+    { name: "Ikoyi Luxury Apartments", location: "Lagos, Nigeria", type: "Residential", shares: "8,000", price: "$15", yield: "7.5%", sold: 55, color: "#0ea5e9", image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80" },
+    { name: "Marina Bay Residences", location: "Singapore", type: "Residential", shares: "12,000", price: "$50", yield: "7.9%", sold: 30, color: "#38b6ff", image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&q=80" },
+    { name: "Westlands Business Park", location: "Nairobi, Kenya", type: "Commercial", shares: "15,000", price: "$20", yield: "8.5%", sold: 70, color: "#7dd3fc", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" },
   ];
 
   const faqs = [
@@ -164,13 +164,24 @@ export default function Home() {
               background: "rgba(255,255,255,0.03)", border: "1px solid rgba(56,182,255,0.15)",
               borderRadius: "20px", overflow: "hidden", cursor: "pointer"
             }}>
-              <div style={{
+          <div style={{
                 height: "180px",
-                background: "linear-gradient(135deg, rgba(14,165,233,0.3), rgba(56,182,255,0.1))",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: "48px", position: "relative"
+                position: "relative",
+                overflow: "hidden"
               }}>
-                🏢
+                <img
+                  src={property.image}
+                  alt={property.name}
+                  style={{
+                    width: "100%", height: "100%",
+                    objectFit: "cover",
+                    transition: "transform 0.3s ease"
+                  }}
+                />
+                <div style={{
+                  position: "absolute", inset: 0,
+                  background: "linear-gradient(to bottom, transparent 50%, rgba(10,15,30,0.8) 100%)"
+                }} />
                 <div style={{
                   position: "absolute", bottom: 0, left: 0, right: 0, height: "2px",
                   background: `linear-gradient(90deg, transparent, ${property.color}, transparent)`
