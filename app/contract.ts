@@ -490,3 +490,17 @@ export const USDC_ABI = [
     outputs: [{ name: '', type: 'uint256' }]
   }
 ] as const;
+export const TEST_USDC_ADDRESS = "0x6373f2958185152CefF9acE325De0E41903d1FC7" as `0x${string}`;
+
+export const TEST_USDC_ABI = [
+  {
+    name: "mint",
+    type: "function",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "to", type: "address" },
+      { name: "amount", type: "uint256" }
+    ],
+    outputs: []
+  }
+] as const;

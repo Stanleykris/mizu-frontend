@@ -2,7 +2,9 @@
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useState } from "react";
+import { useWriteContract, useAccount } from "wagmi";
 import BuyShares from "./BuyShares";
+import { TEST_USDC_ADDRESS, TEST_USDC_ABI } from "./contract";
 
 export default function Home() {
   const [selectedProperty, setSelectedProperty] = useState<{
@@ -11,9 +13,22 @@ export default function Home() {
     pricePerShare: number;
   } | null>(null);
 
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-const properties = [
+  const { address } = useAccount();
+  const { writeContract: mintUSDC, isPending: minting } = useWriteContract();
+
+  const handleMint = () => {
+    if (!address) return;
+    mintUSDC({
+      address: TEST_USDC_ADDRESS,
+      abi: TEST_USDC_ABI,
+      functionName: "mint",
+      args: [address, BigInt(100 * 1_000_000)],
+    });
+  };
+
+  const properties = [
     { name: "Victoria Island Tower", location: "Lagos, Nigeria", type: "Commercial", shares: "10,000", price: "$10", yield: "8.2%", sold: 65, color: "#0ea5e9", image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" },
     { name: "Canary Wharf Office Suite", location: "London, UK", type: "Commercial", shares: "5,000", price: "$100", yield: "9.2%", sold: 40, color: "#38b6ff", image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80" },
     { name: "Downtown Dubai Plaza", location: "Dubai, UAE", type: "Mixed", shares: "20,000", price: "$25", yield: "8.8%", sold: 80, color: "#7dd3fc", image: "https://images.unsplash.com/photo-1546412414-8035e1776c9a?w=600&q=80" },
@@ -118,7 +133,7 @@ const properties = [
           MIZU lets anyone buy fractional shares of global real estate and earn
           monthly rental yield. Ownership flows freely. No banks. No brokers. No borders.
         </p>
-        <div style={{ display: "flex", gap: "16px" }}>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", justifyContent: "center" }}>
           <button style={{
             background: "linear-gradient(135deg, #38b6ff, #0ea5e9)", border: "none",
             color: "white", padding: "14px 32px", borderRadius: "50px",
@@ -130,6 +145,16 @@ const properties = [
             color: "white", padding: "14px 32px", borderRadius: "50px",
             fontSize: "15px", fontWeight: "600", cursor: "pointer"
           }}>Learn More</button>
+          <button
+            onClick={handleMint}
+            disabled={minting}
+            style={{
+              background: "transparent", border: "1px solid rgba(74,222,128,0.4)",
+              color: "#4ade80", padding: "14px 32px", borderRadius: "50px",
+              fontSize: "15px", fontWeight: "600", cursor: "pointer"
+            }}>
+            {minting ? "Minting..." : "Get Test USDC"}
+          </button>
         </div>
         <div style={{
           display: "flex", gap: "60px", marginTop: "80px", padding: "32px 60px",
@@ -153,7 +178,7 @@ const properties = [
           ))}
         </div>
       </section>
-      <section style={{ padding: "20px 40px 80px" }}>
+     <section id="properties" style={{ padding: "20px 40px 80px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px" }}>
           <h3 style={{ fontSize: "28px", fontWeight: "700" }}>Featured Properties</h3>
           <a href="#" style={{ color: "#38b6ff", fontSize: "14px", textDecoration: "none" }}>View all →</a>
@@ -327,12 +352,14 @@ const properties = [
         <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: "32px", fontSize: "16px" }}>
           Join thousands of investors earning USDC yield from global properties.
         </p>
-        <button style={{
-          background: "linear-gradient(135deg, #38b6ff, #0ea5e9)", border: "none",
-          color: "white", padding: "16px 40px", borderRadius: "50px",
-          fontSize: "16px", fontWeight: "700", cursor: "pointer",
-          boxShadow: "0 0 40px rgba(56,182,255,0.5)"
-        }}>Get Started</button>
+        <a href="#properties" style={{
+  display: "inline-block",
+  background: "linear-gradient(135deg, #38b6ff, #0ea5e9)",
+  color: "white", padding: "16px 40px", borderRadius: "50px",
+  fontSize: "16px", fontWeight: "700", cursor: "pointer",
+  boxShadow: "0 0 40px rgba(56,182,255,0.5)",
+  textDecoration: "none"
+}}>Get Started</a>
       </section>
 
       <footer style={{
