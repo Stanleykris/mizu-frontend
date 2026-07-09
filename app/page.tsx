@@ -2,9 +2,7 @@
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useState } from "react";
-import { useWriteContract, useAccount } from "wagmi";
 import BuyShares from "./BuyShares";
-import { TEST_USDC_ADDRESS, TEST_USDC_ABI } from "./contract";
 
 export default function Home() {
   const [selectedProperty, setSelectedProperty] = useState<{
@@ -14,19 +12,6 @@ export default function Home() {
   } | null>(null);
 
 const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  const { address } = useAccount();
-  const { writeContract: mintUSDC, isPending: minting } = useWriteContract();
-
-  const handleMint = () => {
-    if (!address) return;
-    mintUSDC({
-      address: TEST_USDC_ADDRESS,
-      abi: TEST_USDC_ABI,
-      functionName: "mint",
-      args: [address, BigInt(100 * 1_000_000)],
-    });
-  };
 
   const properties = [
     { name: "Victoria Island Tower", location: "Lagos, Nigeria", type: "Commercial", shares: "10,000", price: "$10", yield: "8.2%", sold: 65, color: "#0ea5e9", image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" },
@@ -145,16 +130,6 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             color: "white", padding: "14px 32px", borderRadius: "50px",
             fontSize: "15px", fontWeight: "600", cursor: "pointer"
           }}>Learn More</button>
-          <button
-            onClick={handleMint}
-            disabled={minting}
-            style={{
-              background: "transparent", border: "1px solid rgba(74,222,128,0.4)",
-              color: "#4ade80", padding: "14px 32px", borderRadius: "50px",
-              fontSize: "15px", fontWeight: "600", cursor: "pointer"
-            }}>
-            {minting ? "Minting..." : "Get Test USDC"}
-          </button>
         </div>
         <div style={{
           display: "flex", gap: "60px", marginTop: "80px", padding: "32px 60px",
