@@ -29,7 +29,7 @@ export default function BuyShares({ propertyId, propertyName, pricePerShare, onC
       address: USDC_ADDRESS,
       abi: USDC_ABI,
       functionName: "approve",
-      args: [MIZU_CONTRACT_ADDRESS, BigInt(totalCost * 1_000_000)],
+      args: [MIZU_CONTRACT_ADDRESS, BigInt(999999 * 1_000_000)],
     });
   };
 
